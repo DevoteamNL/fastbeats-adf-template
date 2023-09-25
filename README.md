@@ -1,0 +1,1 @@
+# fastbeats-adf-template

@@ -1,0 +1,48 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "adf-fastbeat-template"
+        },
+        "dataFactory_properties_globalParameters_test_param_value": {
+            "type": "string",
+            "defaultValue": "devoteam"
+        },
+        "dataFactory_location": {
+            "type": "string",
+            "defaultValue": "westeurope"
+        },
+        "dataFactory_identity_type": {
+            "type": "string",
+            "defaultValue": "SystemAssigned"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('factoryName')]",
+            "type": "Microsoft.DataFactory/factories",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "globalParameters": {
+                    "test_param": {
+                        "type": "string",
+                        "value": "[parameters('dataFactory_properties_globalParameters_test_param_value')]"
+                    }
+                }
+            },
+            "dependsOn": [],
+            "location": "[parameters('dataFactory_location')]",
+            "identity": {
+                "type": "[parameters('dataFactory_identity_type')]",
+                "principalId": "00e790c4-1ecf-450c-86b8-adff546e6d91",
+                "tenantId": "f82b3c62-b635-402b-afa2-a1a807bbfd42"
+            }
+        }
+    ]
+}
